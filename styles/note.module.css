@@ -1,0 +1,72 @@
+.note {
+  background: #fff;
+  position: relative;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 400px;
+
+  margin: 40px auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  animation: slide 0.2s ease;
+}
+
+.note p {
+  font-size: 1.1em;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-weight: 500;
+}
+
+.note button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  font-size: 1.3em;
+  background-color: #f5ba13;
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  outline: none;
+}
+
+.delButton a {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+}
+.editButton {
+  right: -10px;
+  top: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* font-size: 1em !important; */
+}
+
+@media screen and (max-width: 568px) {
+  .note {
+    width: 80vw;
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(200%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

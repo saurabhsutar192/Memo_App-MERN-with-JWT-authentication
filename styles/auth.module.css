@@ -1,0 +1,50 @@
+.auth h1 {
+  margin: 30px;
+}
+
+.auth form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth input {
+  height: 50px;
+  width: 500px;
+  text-align: center;
+  margin: 10px;
+  border-radius: 100px;
+  outline: none;
+  border: none;
+  padding: 15px;
+  font-size: 1em;
+  resize: none;
+  border: 2px solid #d3d3d3;
+}
+
+.auth input:focus {
+  border: 2px solid #f5ba13;
+}
+
+.auth button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #f5ba13;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.auth button:hover {
+  transform: scale(1.2);
+}
+
+@media screen and (max-width: 568px) {
+  .auth input {
+    width: 80%;
+  }
+}
