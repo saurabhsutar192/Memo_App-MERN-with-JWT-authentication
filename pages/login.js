@@ -36,6 +36,11 @@ function login() {
     }
   }
 
+  useEffect(() => {
+    dispatch({ type: "SET_LOGIN", payload: false });
+    localStorage.removeItem("profile");
+  }, []);
+
   return (
     <div className={styles.auth}>
       <h1>Login</h1>

@@ -17,7 +17,7 @@ function register() {
     if (user.name && user.email && user.password) {
       if (user.password === verifyPass) {
         registerUser(user)
-          .then(({ data }) => {
+          .then(() => {
             router.push("/login");
             setUser({
               name: "",

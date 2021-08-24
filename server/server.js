@@ -48,6 +48,9 @@ app.get("/:auth", (req, res) => {
     } else {
       res.json(memos);
     }
+  }).catch((err) => {
+    console.log(err);
+    res.status(404).send({ message: err.message });
   });
 });
 
@@ -56,7 +59,7 @@ app.post("/", verifyJWT, (req, res) => {
   memo
     .save()
     .then((memo) => {
-      res.json(memo);
+      console.log(memo);
     })
     .catch((err) => {
       res.status(500).send(err.message);
