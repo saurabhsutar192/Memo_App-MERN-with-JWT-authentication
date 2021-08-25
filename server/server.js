@@ -62,7 +62,7 @@ app.post("/", verifyJWT, (req, res) => {
       console.log(memo);
     })
     .catch((err) => {
-      res.status(500).send(err.message);
+      console(err.message);
     });
 });
 
