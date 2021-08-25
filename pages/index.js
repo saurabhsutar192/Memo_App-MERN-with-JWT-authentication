@@ -17,22 +17,34 @@ function App() {
 
   function addItem(data, author) {
     if (!edited) {
-      addMemos(data, author).then((res) => {
-        fetchMemos();
-      });
+      addMemos(data, author)
+        .then((res) => {
+          fetchMemos();
+        })
+        .catch(({ response }) => {
+          window.alert(response.data.message);
+        });
     } else {
-      editMemos(data, editID, author).then((res) => {
-        fetchMemos();
-        setEdited(false);
-      });
+      editMemos(data, editID, author)
+        .then((res) => {
+          fetchMemos();
+          setEdited(false);
+        })
+        .catch(({ response }) => {
+          window.alert(response.data.message);
+        });
     }
   }
 
   function del(id) {
     setEdited(false);
-    deleteMemos(id).then((res) => {
-      fetchMemos();
-    });
+    deleteMemos(id)
+      .then((res) => {
+        fetchMemos();
+      })
+      .catch(({ response }) => {
+        window.alert(response.data.message);
+      });
   }
   function edit(id) {
     setEdited(true);
@@ -46,13 +58,17 @@ function App() {
   }
 
   function fetchMemos() {
-    getMemos().then(({ data }) => {
-      setNote(
-        data.map((arr) => {
-          return { id: arr._id, text: arr.text };
-        })
-      );
-    });
+    getMemos()
+      .then(({ data }) => {
+        setNote(
+          data.map((arr) => {
+            return { id: arr._id, text: arr.text };
+          })
+        );
+      })
+      .catch(({ response }) => {
+        window.alert(response.data.message);
+      });
   }
 
   function getInput(setInput) {

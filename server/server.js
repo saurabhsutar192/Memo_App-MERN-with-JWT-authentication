@@ -26,31 +26,30 @@ app.use(express.json());
 function verifyJWT(req, res, next) {
   const token = req.headers["x-access-token"];
   if (!token) {
-    res.send("No token found!");
+    res.json({ message: "No token found!" });
   } else {
     jwt.verify(token, SECRET, (err, decoded) => {
       if (err) {
-        res.send("Token not verified");
+        res.status(404).json({ message: "Token not verified" });
       } else {
         req.userId = decoded.id;
-        res.send("token verified");
+        console.log("token verified");
         next();
       }
     });
   }
 }
 
-app.get("/:auth", (req, res) => {
+app.get("/:auth", verifyJWT, (req, res) => {
   const auth = req.params.auth;
   Memo.find({ author: auth }, (err, memos) => {
     if (err) {
-      res.status(404).send({ message: err.message });
+      res.status(404).json({ message: err.message });
     } else {
-      res.json(memos);
+      res.status(200).json(memos);
     }
   }).catch((err) => {
-    console.log(err);
-    res.status(404).send({ message: err.message });
+    res.status(404).json({ message: err.message });
   });
 });
 
@@ -60,9 +59,10 @@ app.post("/", verifyJWT, (req, res) => {
     .save()
     .then((memo) => {
       console.log(memo);
+      res.status(200).json({ message: "added" });
     })
     .catch((err) => {
-      console(err.message);
+      res.status(404).json({ message: err.message });
     });
 });
 
@@ -73,9 +73,10 @@ app.delete("/:id", verifyJWT, (req, res) => {
     console.log("Deleted " + id);
     Memo.find((err, memos) => {
       if (err) {
-        console.log(err);
+        res.status(404).json({ message: err.message });
       } else {
         console.log(memos);
+        res.status(200).json({ message: "deleted" });
       }
     });
   });
@@ -87,9 +88,10 @@ app.patch("/:id", verifyJWT, (req, res) => {
   Memo.updateOne({ _id: id }, { text: req.body.text }, function () {
     Memo.find((err, memos) => {
       if (err) {
-        console.log(error);
+        res.status(404).json({ message: err.message });
       } else {
         console.log(memos);
+        res.status(200).json({ message: "edited" });
       }
     });
   });
@@ -108,10 +110,10 @@ app.post("/register", async (req, res) => {
       .save()
       .then((user) => {
         token = jwt.sign({ email: user.email, id: user._id }, SECRET);
-        res.json({ user, token });
+        res.status(200).json({ user, token });
       })
       .catch((err) => {
-        res.status(500).send(err.message);
+        res.status(404).json({ message: err.message });
       });
   }
 });
