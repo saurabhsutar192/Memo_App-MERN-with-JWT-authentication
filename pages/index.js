@@ -29,6 +29,7 @@ function App() {
   }
 
   function del(id) {
+    setEdited(false);
     deleteMemos(id).then((res) => {
       fetchMemos();
     });
